@@ -1,8 +1,8 @@
-version: 3.0
+version: '3.0'
 services:
   backend:
     image: ubuntu:latest
-    container_name: softy-pinko-back-end-task4
+    container_name: softy-pinko-back-end-task5
     build:
       context: ./back-end
       dockerfile: Dockerfile
@@ -13,7 +13,7 @@ services:
     
   frontend:
     image: nginx:latest
-    container_name: softy-pinko-front-end-task4
+    container_name: softy-pinko-front-end-task5
     build:
       context: ./front-end
       dockerfile: Dockerfile
@@ -23,4 +23,17 @@ services:
     ports:
       - 9000:9000
     pull_policy: never
+    restart: always
+
+  proxy: 
+    image: nginx:latest
+    container_name : softy-pinko-proxy-task5
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    depends_on:
+      - frontend
+      - backend
+    ports: 
+      - 80:80
     restart: always
